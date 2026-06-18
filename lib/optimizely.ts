@@ -11,7 +11,7 @@ export interface HeroBanner {
 }
 
 const FALLBACK_BANNER: HeroBanner = {
-  heading: "Banking made simple, savings made easy",
+  heading: "This is sample Banking made simple, savings made easy",
   subheading:
     "Experience banking designed around you with competitive rates, zero fees, and 24/7 access to your money",
   badge: "Earn up to 4.5% p.a. on savings",
