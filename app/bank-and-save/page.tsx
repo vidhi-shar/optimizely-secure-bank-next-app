@@ -27,7 +27,7 @@ export default function BankAndSavePage() {
                 width={600}
                 height={400}
                 className="rounded-lg shadow-2xl"
-                src="/images/high-interest-savings-account-growth-chart-fin.jpg"
+                src="/images/high-interest-savings-account-growth-chart-financi.jpg"
               />
             </div>
           </div>

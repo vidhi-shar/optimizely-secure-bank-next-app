@@ -2,8 +2,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export default async function DashboardPage() {
-  const cookieStore = await cookies();
+export default function DashboardPage() {
+  const cookieStore = cookies();
   const session = cookieStore.get("sb_session");
 
   if (!session) redirect("/login");
@@ -41,14 +41,12 @@ export default async function DashboardPage() {
       </div>
 
       <div className="flex gap-4">
-        <form action="/api/logout" method="POST">
-          <Link
-            href="/api/logout"
-            className="inline-flex items-center justify-center text-sm font-medium border bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-4"
-          >
-            Sign Out
-          </Link>
-        </form>
+        <Link
+          href="/api/logout"
+          className="inline-flex items-center justify-center text-sm font-medium border bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-4"
+        >
+          Sign Out
+        </Link>
         <Link
           href="/"
           className="inline-flex items-center justify-center text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-4"

@@ -102,14 +102,7 @@ export default function LoginPage() {
                   Sign up
                 </Link>
               </div>
-              <div className="mt-6 rounded-md bg-muted/50 border px-4 py-3">
-                <p className="text-xs font-medium text-muted-foreground mb-2">Demo credentials:</p>
-                <ul className="text-xs text-muted-foreground space-y-1">
-                  <li>john.smith@example.com / SecureBank@123</li>
-                  <li>sarah.jones@example.com / Banking@456</li>
-                  <li>demo@securebank.com / Demo@2024</li>
-                </ul>
-              </div>
+
             </form>
           </div>
         </div>

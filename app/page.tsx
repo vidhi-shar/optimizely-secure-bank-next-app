@@ -68,7 +68,7 @@ const products = [
   },
   {
     href: "/retirement",
-    image: "/images/retirement-planning-couple-enjoying-beach-suns.jpg",
+    image: "/images/retirement-planning-couple-enjoying-beach-sunset.jpg",
     title: "Retirement Planning",
     description: "Secure your future with smart superannuation and investment options",
     cta: "Plan your retirement",
@@ -167,7 +167,7 @@ export default function Home() {
                   alt="Mobile Banking"
                   fill
                   className="object-cover transition-transform group-hover:scale-105"
-                  src="/images/mobile-banking-app-on-smartphone-with-secure-p.jpg"
+                  src="/images/mobile-banking-app-on-smartphone-with-secure-payme.jpg"
                 />
               </div>
               <div className="px-6">

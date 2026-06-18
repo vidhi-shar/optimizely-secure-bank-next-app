@@ -5,6 +5,10 @@ import { fetchHeroBanner } from "@/lib/optimizely";
 export default async function Banner() {
   const banner = await fetchHeroBanner();
 
+  // CMS images are served from Optimizely's CDN (absolute URL).
+  // Local fallback images start with "/" and are served from /public.
+  const isExternalImage = banner.imageSrc.startsWith("http");
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-muted/50 to-background">
       <div className="container mx-auto px-4 py-20 md:py-32">
@@ -49,18 +53,39 @@ export default async function Banner() {
               </Link>
             </div>
           </div>
+
           <div className="relative hidden lg:block">
-            <Image
-              alt={banner.imageAlt}
-              width={600}
-              height={500}
-              className="rounded-lg shadow-2xl object-cover"
-              src={banner.imageSrc}
-              priority
-            />
+            {isExternalImage ? (
+              /* External CMS image — use a plain <img> to avoid next.config domain rules */
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                alt={banner.imageAlt}
+                src={banner.imageSrc}
+                width={600}
+                height={500}
+                className="rounded-lg shadow-2xl object-cover"
+              />
+            ) : (
+              /* Local /public image — use next/image for optimisation */
+              <Image
+                alt={banner.imageAlt}
+                width={600}
+                height={500}
+                className="rounded-lg shadow-2xl object-cover"
+                src={banner.imageSrc}
+                priority
+              />
+            )}
           </div>
         </div>
       </div>
+
+      {/* Dev-only badge so you can tell at a glance where the content is coming from */}
+      {process.env.NODE_ENV === "development" && (
+        <div className="absolute bottom-2 right-3 rounded-full border px-2 py-0.5 text-xs opacity-60">
+          {banner.fromCMS ? "⚡ Optimizely CMS" : "📄 Static fallback"}
+        </div>
+      )}
     </section>
   );
 }

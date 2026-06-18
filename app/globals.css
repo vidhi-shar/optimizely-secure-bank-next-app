@@ -1,2 +1,3 @@
-/* Import the original SecureBank stylesheet */
-@import url("/style.css");
+/* Base reset so the <body> has no default margin */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }

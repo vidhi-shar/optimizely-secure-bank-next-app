@@ -24,7 +24,7 @@ export default function RetirementPage() {
               </div>
             </div>
             <div className="relative hidden lg:block">
-              <Image alt="Retirement Planning" width={600} height={400} className="rounded-lg shadow-2xl" src="/images/retirement-planning-couple-enjoying-beach-suns.jpg" />
+              <Image alt="Retirement Planning" width={600} height={400} className="rounded-lg shadow-2xl" src="/images/retirement-planning-couple-enjoying-beach-sunset.jpg" />
             </div>
           </div>
         </div>

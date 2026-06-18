@@ -20,6 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="/style.css" />
+      </head>
       <body className="font-sans antialiased">
         <Header />
         <main className="min-h-screen">{children}</main>

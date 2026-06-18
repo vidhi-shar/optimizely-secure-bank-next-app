@@ -12,7 +12,7 @@ const cards = [
     badge: "Most Popular",
     badgeColor: "bg-yellow-500/10 text-yellow-700",
     borderColor: "border-yellow-500/20 bg-yellow-500/5",
-    image: "/images/premium-gold-credit-card-with-metallic-finish.jpg",
+    image: "/images/premium-gold-credit-card-with-metallic-finish-luxu.jpg",
     title: "Platinum Rewards",
     rate: "19.99%",
     annualFee: "$149",
@@ -55,7 +55,7 @@ export default function CreditCardsPage() {
               </p>
             </div>
             <div className="relative hidden lg:block">
-              <Image alt="Credit Cards" width={600} height={400} className="rounded-lg shadow-2xl" src="/images/stack-of-premium-credit-cards-with-rewards-cas.jpg" />
+              <Image alt="Credit Cards" width={600} height={400} className="rounded-lg shadow-2xl" src="/images/stack-of-premium-credit-cards-with-rewards-cashbac.jpg" />
             </div>
           </div>
         </div>
