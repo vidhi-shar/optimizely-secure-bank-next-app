@@ -11,7 +11,7 @@ export interface HeroBanner {
 }
 
 const FALLBACK_BANNER: HeroBanner = {
-  heading: "This is sample Banking made simple, savings made easy",
+  heading: "This is sampleBanking made simple, savings made easy",
   subheading:
     "Experience banking designed around you with competitive rates, zero fees, and 24/7 access to your money",
   badge: "Earn up to 4.5% p.a. on savings",
@@ -25,30 +25,30 @@ const FALLBACK_BANNER: HeroBanner = {
 // Fetches the most-recently published HeroBannerBlock from Optimizely Content Graph.
 // orderBy published DESC guarantees the latest editor-published content wins.
 const HERO_BANNER_QUERY = `
-  query GetHeroBanner {
-    HeroBannerBlock(
-      limit: 1
-      orderBy: { _metadata: { published: DESC } }
-    ) {
-      items {
-        _metadata {
-          name
-          published
-        }
-        Heading
-        SubHeading
-        BadgeText
-        CtaPrimaryLabel
-        CtaSecondaryLabel
-        Image {
-          url {
-            default
-          }
-        }
-        ImageAltText
+query GetHeroBanner {
+  HeroBannerBlock(
+    limit: 1
+    orderBy: { _metadata: { published: DESC } }
+  ) {
+    items {
+      _metadata {
+        displayName
+        published
       }
+      Heading
+      SubHeading
+      BadgeText
+      CTAPrimaryLabel
+      CTASecondaryLabel
+      Image {
+        url {
+          default
+        }
+      }
+      ImageAltText
     }
   }
+}
 `;
 
 export async function fetchHeroBanner(): Promise<HeroBanner> {
