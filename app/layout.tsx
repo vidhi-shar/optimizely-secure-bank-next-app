@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src="//cdn.optimizely.com/js/6089558538846208.js" />
+        <Script src="//cdn.optimizely.com/js/6089558538846208.js" strategy="beforeInteractive" />
         <link rel="stylesheet" href="/style.css" />
       </head>
       <body className="font-sans antialiased">
