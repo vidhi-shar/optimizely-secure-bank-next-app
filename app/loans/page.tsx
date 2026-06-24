@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ProductVisitTracker from "@/components/ProductVisitTracker";
 
 const CheckIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-4 w-4 shrink-0 text-accent">
@@ -43,6 +44,7 @@ const loans = [
 export default function LoansPage() {
   return (
     <div className="flex flex-col">
+      <ProductVisitTracker product="loans" />
       <section className="relative overflow-hidden bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="grid items-center gap-8 lg:grid-cols-2">

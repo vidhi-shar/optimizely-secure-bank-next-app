@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script src="//cdn.optimizely.com/js/6089558538846208.js" />
         <link rel="stylesheet" href="/style.css" />
       </head>
       <body className="font-sans antialiased">
