@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import OptimizelyActivate from "@/components/OptimizelyActivate";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="/style.css" />
       </head>
       <body className="font-sans antialiased">
+        <OptimizelyActivate />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
