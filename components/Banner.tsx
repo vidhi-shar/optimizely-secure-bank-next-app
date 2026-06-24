@@ -17,7 +17,7 @@ export default async function Banner() {
             <div className="mb-6 inline-block rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent">
               {banner.badge}
             </div>
-            <h1 className="mb-6 text-balance text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="mb-6 text-balance text-4xl font-bold tracking-tight md:text-6xl" id="HomeBanner">
               {banner.heading}
             </h1>
             <p className="mb-8 text-pretty text-lg text-muted-foreground md:text-xl">
