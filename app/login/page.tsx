@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { updateDigitalData } from "@/lib/adobeDataLayer";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,6 +29,16 @@ export default function LoginPage() {
       if (!res.ok) {
         setError(data.error ?? "Login failed");
       } else {
+        // ── Adobe data layer: update user fields immediately after login ──
+        // The API now returns { success, name, email }.
+        // We push these into window.digitalData so Launch rules that fire
+        // on the subsequent page load already have the authenticated user data.
+        updateDigitalData({
+          userName: data.name ?? "",
+          userEmail: data.email ?? "",
+          userImage: "",
+        });
+
         router.push("/dashboard");
       }
     } catch {
@@ -102,7 +113,6 @@ export default function LoginPage() {
                   Sign up
                 </Link>
               </div>
-
             </form>
           </div>
         </div>

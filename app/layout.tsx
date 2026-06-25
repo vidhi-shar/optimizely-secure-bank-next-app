@@ -3,6 +3,7 @@ import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import OptimizelyActivate from "@/components/OptimizelyActivate";
+import AdobeDataLayerProvider from "@/components/AdobeDataLayerProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,11 +28,20 @@ export default function RootLayout({
         <link rel="stylesheet" href="/style.css" />
       </head>
       <body className="font-sans antialiased">
+          {/*
+          AdobeDataLayerProvider:
+            • Sets window.digitalData on every route change (port of the AEM
+              inline <script> block)
+            • Injects the Adobe Launch embed script once (same URL as AEM)
+          Must be a Client Component; placed before <Header> so digitalData
+          is ready before any child component fires analytics events.
+        */}
         <OptimizelyActivate />
+        <AdobeDataLayerProvider />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
-      </body>
+      </body>  
     </html>
   );
 }
