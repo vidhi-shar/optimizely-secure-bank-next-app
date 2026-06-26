@@ -20,19 +20,64 @@ function getCookie(name: string): string | null {
   return match ? decodeURIComponent(match[1]) : null;
 }
 
+// FIX: Read user identity from localStorage which is always reliable in
+// production builds. Cookie is still the source of truth for server-side
+// auth (sb_session), but localStorage is used for client-side display state
+// (username in header) because Next.js production route transitions can cause
+// cookies to be temporarily unreadable in useEffect, making the header flash
+// to "Login" incorrectly.
+function getStoredUser(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem("sb_user");
+}
+
+function setStoredUser(name: string): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem("sb_user", name);
+}
+
+function clearStoredUser(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem("sb_user");
+}
+
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [userName, setUserName] = useState<string | null>(null);
 
-  // Read the JS-visible cookie on every navigation
+  // FIX: On mount, read from localStorage first (instant, always reliable),
+  // then fall back to cookie. This prevents the "Login" flash on page refresh.
   useEffect(() => {
-    setUserName(getCookie("sb_user"));
+    const stored = getStoredUser();
+    if (stored) {
+      setUserName(stored);
+      return;
+    }
+    // Fallback: if localStorage is empty, try cookie (e.g. first load after login)
+    const cookie = getCookie("sb_user");
+    if (cookie) {
+      setStoredUser(cookie); // sync into localStorage for future navigations
+      setUserName(cookie);
+    }
+  }, []);
+
+  // FIX: On route change, ONLY sync from cookie into localStorage if the
+  // cookie is readable. Never clear userName here — that caused the "anonymous"
+  // flash. The only legitimate way to clear it is handleLogout() below.
+  useEffect(() => {
+    const cookie = getCookie("sb_user");
+    if (cookie) {
+      setStoredUser(cookie);
+      setUserName(cookie);
+    }
+    // Intentionally no "else" — do not clear state on route change
   }, [pathname]);
 
   async function handleLogout() {
-    // Clear the JS-visible cookie immediately so the header updates right away
+    // FIX: Clear BOTH cookie and localStorage on logout
     document.cookie = "sb_user=; path=/; max-age=0";
+    clearStoredUser();
     setUserName(null);
     await fetch("/api/logout");
     router.push("/");

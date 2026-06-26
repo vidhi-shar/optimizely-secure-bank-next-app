@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { updateDigitalData } from "@/lib/adobeDataLayer";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -29,16 +28,16 @@ export default function LoginPage() {
       if (!res.ok) {
         setError(data.error ?? "Login failed");
       } else {
-        // ── Adobe data layer: update user fields immediately after login ──
-        // The API now returns { success, name, email }.
-        // We push these into window.digitalData so Launch rules that fire
-        // on the subsequent page load already have the authenticated user data.
-        updateDigitalData({
-          userName: data.name ?? "",
-          userEmail: data.email ?? "",
-          userImage: "",
-        });
-
+        // FIX: Write userName to localStorage immediately after login so
+        // Header.tsx can read it reliably on every subsequent route change
+        // and page refresh without depending on cookie timing.
+        if (data.name) {
+          localStorage.setItem("sb_user", data.name);
+        }
+        // FIX: Also store email in localStorage for the Adobe data layer
+        if (data.email) {
+          localStorage.setItem("sb_email", data.email);
+        }
         router.push("/dashboard");
       }
     } catch {
@@ -67,10 +66,7 @@ export default function LoginPage() {
                   </div>
                 )}
                 <div className="grid gap-2">
-                  <label
-                    className="flex items-center gap-2 text-sm leading-none font-medium"
-                    htmlFor="email"
-                  >
+                  <label className="flex items-center gap-2 text-sm leading-none font-medium" htmlFor="email">
                     Email
                   </label>
                   <input
@@ -84,10 +80,7 @@ export default function LoginPage() {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <label
-                    className="flex items-center gap-2 text-sm leading-none font-medium"
-                    htmlFor="password"
-                  >
+                  <label className="flex items-center gap-2 text-sm leading-none font-medium" htmlFor="password">
                     Password
                   </label>
                   <input

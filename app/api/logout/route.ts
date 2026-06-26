@@ -1,10 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const res = NextResponse.redirect(new URL("/", process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"));
+export async function GET(req: NextRequest) {
+  // FIX: Use req.nextUrl.origin so redirect works in production on any host
+  const origin = req.nextUrl.origin;
+  const res = NextResponse.redirect(new URL("/", origin));
   res.cookies.delete("sb_session");
   res.cookies.delete("sb_user");
-  // Clear the email cookie so digitalData.userEmail resets to "" on logout
-  res.cookies.delete("sb_email");
+  // Note: localStorage is cleared client-side in Header.tsx handleLogout()
   return res;
 }
